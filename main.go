@@ -3,16 +3,18 @@ package main
 import "fmt"
 
 type TablePrinter struct {
-	lineLength int
-	header     []string
-	rows       [][]string
+	lineLength   int
+	totalColumns int
+	header       []string
+	rows         [][]string
 }
 
 func NewTablePrinter(lineLength int, header []string, rows [][]string) *TablePrinter {
 	return &TablePrinter{
-		lineLength: lineLength,
-		header:     header,
-		rows:       rows,
+		totalColumns: len(header),
+		lineLength:   lineLength,
+		header:       header,
+		rows:         rows,
 	}
 }
 
@@ -44,7 +46,7 @@ func (tp *TablePrinter) printTableLine() {
 }
 
 func (tp *TablePrinter) printLineContent(lineContent []string) {
-	rangeToIncrease := tp.lineLength / 5
+	rangeToIncrease := tp.lineLength / tp.totalColumns
 	partialRow := ""
 	partiaLength := 0
 
